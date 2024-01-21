@@ -3,7 +3,7 @@
 # GMT351- Geospatial Data Management Group-5 Final Project Report
 ---
 * Beyza ÖZKAN - 21833369
-* Rümeysa Nur Keleş 21833283
+* Rümeysa Nur Keleş - 21833283
 ---
 The purpose of the project we created, is to display the airport points correctly on the basemap on the created website, to prepare pop-ups that provide information about the selected airports, to filter the selected data according to countries, and to enable the user to create read update delete applications. HTML, React, JavaScript, Openlayer were used in the project.
 
@@ -18,19 +18,19 @@ In HTML projects, the "search" menu usually provides the user with an interface 
 
 To enhance the project structure, navigate to the src directory and craft the following components:
 
-*InputForm.js:
+* InputForm.js:
 
 This versatile component serves the dual purpose of creating and updating airport information. It provides a dynamic interface that adapts to the specific needs of adding new airports or modifying existing ones.
 
-*AirportList.js:
+* AirportList.js:
 
 This component showcases a list of airports and offers options to view, edit, and delete each entry. It provides a comprehensive overview of available airports within the system.
 
-*AirportDetail.js:
+* AirportDetail.js:
 
 This component provides a detailed view of a single airport, presenting a comprehensive overview of its information.
 
-*AirportEdit.js:
+* AirportEdit.js:
 
 This component acts as an interface for editing airport information, allowing users to modify and update the details.
 Lastly, integrate these components into the main App.js for seamless interaction and functionality. Ensure proper routing and state management for an optimal user experience.
