@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+    <script>
+      alert("Welcome!");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      .map {
+        width: 100%;
+        height: 50px;
+      }
+      .ol-popup {
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 280px;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map">
+      <div id= "popup" class= "ol-popup">
+       <a href="localhost:5173" id="popup-closer" class="ol-popup-closer"></a>
+       <div id="popup-content"></div>
+     </div>
+
+    <script>
+      
+        const container = document.getElementById('popup');
+        const content = document.getElementById('popup-content');
+        const closer = document.getElementById('popup-closer');
+       
+        const overlay = new ol.Overlay({
+          element: container,
+          
+        },
+      );
+
+        const attribution = new ol.control.Attribution({
+          collapsible: false,
+        });
+        
+
+        const styleJson = 'https://api.maptiler.com/data/bb46ad28-87a8-4f04-af8b-e1dc929a3418/features.json?key=lbcOOoWVoLo5FrF5u0rj'
+       
+
+        const map = new ol.Map({
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.TileJSON({
+              url:'https://api.maptiler.com/maps/basic-v2/tiles.json?key=lbcOOoWVoLo5FrF5u0rj',
+              tileSize: 512,
+              })
+            })
+          ],
+              target:'map',
+              view: new ol.View({
+              center: ol.proj.fromLonLat([ 39 , 35 ]),
+              zoom: 5
+              }),
+              overlays: [overlay],
+          });
+          
+
+        const Airports = new ol.layer.Vector({
+          source: new ol.source.Vector({
+          url: 'https://api.maptiler.com/data/bb46ad28-87a8-4f04-af8b-e1dc929a3418/features.json?key=lbcOOoWVoLo5FrF5u0rj',
+          format: new ol.format.GeoJSON(),
+          }),
+          style: new ol.style.Style({
+          image: new ol.style.Icon({
+            src: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-plane-512.png',
+            size: [512,512],
+            scale: 0.03
+          }),    
+          
+          })
+        });
+
+      map.addLayer(Airports);
+
+      map.on('click', function (evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel, 
+        function(feature, layer) {
+          if (layer == Airports) {
+            return feature;
+          }
+              
+        });
+        if (feature) {
+          var popupContent = '<h3>' + feature.get('name') +'</h3>';
+          popupContent += '<p> Geo Point:' + feature.get('Geo Point') +'<p>';
+          popupContent += '<p> Name' +  feature.get('Name') +'<p>';
+          popupContent += '<p> Name (en)' + feature.get('Name (en)') +'<p>';
+          popupContent += '<p> IATA code' + feature.get('IATA code') +'<p>';
+          popupContent += '<p> ICAO code' + feature.get('ICAO code') +'<p>';
+          popupContent += '<p> Wikipedia id' + feature.get('Wikipedia id') +'<p>';
+          popupContent += '<p> Wikidata id' + feature.get('Wikidata id') +'<p>';
+          popupContent += '<p> Website' + feature.get('Website') +'<p>';
+          popupContent += '<p> Phone' + feature.get('Phone') +'<p>';
+          popupContent += '<p> Operator' + feature.get('Operator') +'<p>';
+          popupContent += '<p> Edit in OSM' + feature.get('Edit in OSM') +'<p>';
+          popupContent += '<p> Country' + feature.get('Country') +'<p>';
+          popupContent += '<p> Country code' + feature.get('Country code') +'<p>';
+ 
+
+            content.innerHTML = popupContent;
+            const coordinate = evt.coordinate;
+            overlay.setPosition(coordinate);
+          
+
+        } 
+      });    
+      closer.onclick = function () {
+        overlay.setPosition(undefined);
+      }
+         
+  </script>
+</body>
+</html>   
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Left column (menu) */
+.left {
+  flex: 35%;
+  padding: 15px 0;
+}
+
+.left h2 {
+  padding-left: 8px;
+}
+
+/* Right column (page content) */
+.right {
+  flex: 65%;
+  padding: 15px;
+}
+
+/* Style the search box */
+#mySearch {
+  width: 100%;
+  font-size: 18px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
+
+/* Style the navigation menu inside the left column */
+#myMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myMenu li a {
+  padding: 12px;
+  text-decoration: none;
+  color: black;
+  display: block
+}
+
+#myMenu li a:hover {
+  background-color: #eee;
+}
+</style>
+</head>
+<body>
+
+<h2>Search Menu</h2>
+<p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
+
+<div class="row">
+  <div class="left" style="background-color:#bbb;">
+    <h2>Menu</h2>
+    <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+    <ul id="myMenu">
+      <li><a href="#">Albania</a></li>
+      <li><a href="#">Algeria</a></li>
+      <li><a href="#">Angola</a></li>
+      <li><a href="#">Antigua and Barbuda</a></li>
+      <li><a href="#">Argentina</a></li>
+      <li><a href="#">Australia</a></li>
+      <li><a href="#">Austria</a></li>
+      <li><a href="#">Azerbaijan</a></li>
+      <li><a href="#">Bahamas</a></li>
+      <li><a href="#">Bangladesh</a></li>
+      <li><a href="#">Barbados</a></li>
+      <li><a href="#">Belarus</a></li>
+      <li><a href="#">Belgium</a></li>
+      <li><a href="#">Bolivia</a></li>
+      <li><a href="#">Bosnia and Herzegovina</a></li>
+      <li><a href="#">Brazil</a></li>
+      <li><a href="#">Bulgaria</a></li>
+      <li><a href="#">Burkina Faso</a></li>
+      <li><a href="#">Cambodia</a></li>
+      <li><a href="#">Cameroon</a></li>
+      <li><a href="#">Canada</a></li>
+      <li><a href="#">Chad</a></li>
+      <li><a href="#">Chile</a></li>
+      <li><a href="#">China</a></li>
+      <li><a href="#">Comoros</a></li>
+      <li><a href="#">Croatia</a></li>
+      <li><a href="#">Cuba</a></li>
+      <li><a href="#">Cyprus</a></li>
+      <li><a href="#">Czechia</a></li>
+      <li><a href="#">Denmark</a></li>
+      <li><a href="#">Djibouti</a></li>
+      <li><a href="#">Dominican Republic</a></li>
+      <li><a href="#">Ecuador</a></li>
+      <li><a href="#">Egypt</a></li>
+      <li><a href="#">El Salvador</a></li>
+      <li><a href="#">Equatorial Guinea</a></li>
+      <li><a href="#">Eritrea</a></li>
+      <li><a href="#">Estonia</a></li>
+      <li><a href="#">Ethiopia</a></li>
+      <li><a href="#">Fiji</a></li>
+      <li><a href="#">Finland</a></li>
+      <li><a href="#">France</a></li>
+      <li><a href="#">Gabon</a></li>
+      <li><a href="#">Georgia</a></li>
+      <li><a href="#">Germany</a></li>
+      <li><a href="#">Ghana</a></li>
+      <li><a href="#">Greece</a></li>
+      <li><a href="#">Guatemala</a></li>
+      <li><a href="#">Guyana</a></li>
+      <li><a href="#">Haiti</a></li>
+      <li><a href="#">Hungary</a></li>
+      <li><a href="#">Iceland</a></li>
+      <li><a href="#">India</a></li>
+      <li><a href="#">Indonesia</a></li>
+      <li><a href="#">Iran</a></li>
+      <li><a href="#">Iraq</a></li>
+      <li><a href="#">Ireland</a></li>
+      <li><a href="#">Israel</a></li>
+      <li><a href="#">Italy</a></li>
+      <li><a href="#">Jamaica</a></li>
+      <li><a href="#">Japan</a></li>
+      <li><a href="#">Jordan</a></li>
+      <li><a href="#">Kazakhstan</a></li>
+      <li><a href="#">Kenya</a></li>
+      <li><a href="#">Kiribati</a></li>
+      <li><a href="#">Kosovo</a></li>
+      <li><a href="#">Kuwait</a></li>
+      <li><a href="#">Kyrgyzstan</a></li>
+      <li><a href="#">Libya</a></li>
+      <li><a href="#">Luxembourg</a></li>
+      <li><a href="#">Madagascar</a></li>
+      <li><a href="#">Malawi</a></li>
+      <li><a href="#">Maldives</a></li>
+      <li><a href="#">Mauritania</a></li>
+      <li><a href="#">Mexico</a></li>
+      <li><a href="#">Moldova</a></li>
+      <li><a href="#">Montenegro</a></li>
+      <li><a href="#">Morocco</a></li>
+      <li><a href="#">Myanmar</a></li>
+      <li><a href="#">Namibia</a></li>
+      <li><a href="#">Nauru</a></li>
+      <li><a href="#">Nepal</a></li>
+      <li><a href="#">Netherlands</a></li>
+      <li><a href="#">New Zealand</a></li>
+      <li><a href="#">Niger</a></li>
+      <li><a href="#">Nigeria</a></li>
+      <li><a href="#">North Macedonia</a></li>
+      <li><a href="#">Norway</a></li>
+      <li><a href="#">Oman</a></li>
+      <li><a href="#">Pakistan</a></li>
+      <li><a href="#">Palau</a></li>
+      <li><a href="#">Panama</a></li>
+      <li><a href="#">Peru</a></li>
+      <li><a href="#">Philippines</a></li>
+      <li><a href="#">Poland</a></li>
+      <li><a href="#">Portugal</a></li>
+      <li><a href="#">Romania</a></li>
+      <li><a href="#">Russia</a></li>
+      <li><a href="#">South Sudan</a></li>
+      <li><a href="#">Saint Lucia</a></li>
+      <li><a href="#">Saudi Arabia</a></li>
+      <li><a href="#">Senegal</a></li>
+      <li><a href="#">Serbia</a></li>
+      <li><a href="#">Seychelles</a></li>
+      <li><a href="#">Slovakia</a></li>
+      <li><a href="#">Somalia</a></li>
+      <li><a href="#">South Africa</a></li>
+      <li><a href="#">Spain</a></li>
+      <li><a href="#">Sri Lanka</a></li>
+      <li><a href="#">St. Kitts and Nevis</a></li>
+      <li><a href="#">Sudan</a></li>
+      <li><a href="#">Sweden</a></li>
+      <li><a href="#">Switzerland</a></li>
+      <li><a href="#">Taiwan</a></li>
+      <li><a href="#">Tajikistan</a></li>
+      <li><a href="#">Tanzania</a></li>
+      <li><a href="#">Thailand</a></li>
+      <li><a href="#">Tonga</a></li>
+      <li><a href="#">Trinidad and Tobago</a></li>
+      <li><a href="#">Tunisia</a></li>
+      <li><a href="#">Turkey</a></li>
+      <li><a href="#">Uganda</a></li>
+      <li><a href="#">Ukraine</a></li>
+      <li><a href="#">United Arab Emirates</a></li>
+      <li><a href="#">United Kingdom</a></li>
+      <li><a href="#">United States of America</a></li>
+      <li><a href="#">Uruguay</a></li>
+      <li><a href="#">Uzbekistan</a></li>
+      <li><a href="#">Vanuatu</a></li>
+      <li><a href="#">Venezuela</a></li>
+      <li><a href="#">Vietnam</a></li>
+      <li><a href="#">Yemen</a></li>
+      <li><a href="#">Zambia</a></li>
+      <li><a href="#">Zimbabwe</a></li>
+    </ul>
+  </div>
+  
+  <div class="right" style="background-color:#ddd;">
+    <h2>Page Content</h2>
+    <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
+    <p>You can filter your airport preference by country by selecting the country from the menu on the side.</p>
+  </div>
+</div>
+
+<script>
+function myFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("mySearch");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myMenu");
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
