@@ -4,7 +4,7 @@
 ---
 * Beyza ÖZKAN - 21833369
 * Rümeysa Nur KELEŞ - 21833283
-* Feyza KARAKELLE
+* Feyza KARAKELLE - 21833245
 ---
 The purpose of the project we created, is to display the airport points correctly on the basemap on the created website, to prepare pop-ups that provide information about the selected airports, to filter the selected data according to countries, and to enable the user to create read update delete applications. HTML, React, JavaScript, Openlayer were used in the project. Our data will be available at this [website](https://data.opendatasoft.com/explore/dataset/osm-world-airports%40babel/export/?dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6Im9zbS13b3JsZC1haXJwb3J0c0BiYWJlbCIsIm9wdGlvbnMiOnt9fSwiY2hhcnRzIjpbeyJhbGlnbk1vbnRoIjp0cnVlLCJ0eXBlIjoiY29sdW1uIiwiZnVuYyI6IkNPVU5UIiwic2NpZW50aWZpY0Rpc3BsYXkiOnRydWUsImNvbG9yIjoiIzE0MkU3QiJ9XSwieEF4aXMiOiJzb3VyY2UiLCJtYXhwb2ludHMiOjUwLCJzb3J0IjoiIn1dLCJ0aW1lc2NhbGUiOiIiLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D&location=11,40.09436,33.02731&basemap=jawg.streets). The csv version was uploaded to see the content.
 
