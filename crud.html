@@ -108,7 +108,7 @@ function App() {
   // Fetch airports from API
   const fetchAirports = async () => {
     try {
-      const response = await fetch('https://api.example.com/users');
+      const response = await fetch('https://api.maptiler.com/data/bb46ad28-87a8-4f04-af8b-e1dc929a3418/features.json?key=lbcOOoWVoLo5FrF5u0rj');
       const data = await response.json();
       setAirports(data);
     } catch (error) {
@@ -119,7 +119,7 @@ function App() {
   // Create a new airport
   const addAirport = async (airportData) => {
     try {
-      const response = await fetch('https://api.example.com/users', {
+      const response = await fetch('https://api.maptiler.com/data/bb46ad28-87a8-4f04-af8b-e1dc929a3418/features.json?key=lbcOOoWVoLo5FrF5u0rj', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ function App() {
   // Update an existing airport
   const updateAirport = async (airportData) => {
     try {
-      const response = await fetch(`https://api.example.com/users/${userData.id}`, {
+      const response = await fetch(`https://api.maptiler.com/data/bb46ad28-87a8-4f04-af8b-e1dc929a3418/features.json?key=lbcOOoWVoLo5FrF5u0rj/${userData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ function App() {
   // Delete a airport
   const deleteAirport = async (airportId) => {
     try {
-      await fetch(`https://api.example.com/users/${userId}`, {
+      await fetch(`https://api.maptiler.com/data/bb46ad28-87a8-4f04-af8b-e1dc929a3418/features.json?key=lbcOOoWVoLo5FrF5u0rj/${userId}`, {
         method: 'DELETE',
       });
       const updatedAirports = airports.filter((airport) => airport.id !== airportId);
