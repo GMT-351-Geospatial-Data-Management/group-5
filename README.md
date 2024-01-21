@@ -12,7 +12,7 @@ In HTML projects, the "search" menu usually provides the user with an interface 
 
 
 
-# Workplan
+## Workplan
 * Background Check for HTML, React and Openlayers - Feyza, Beyza, Rümeysa
 * An empty website (localhost) was created using react - Feyza
 * Selecting basemap from Maptiler - Feyza
