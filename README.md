@@ -13,20 +13,26 @@ In HTML projects, the "search" menu usually provides the user with an interface 
 ---
 
 ## CRUD Section
+
 To enhance the project structure, navigate to the src directory and craft the following components:
 
 *InputForm.js:
+
 This versatile component serves the dual purpose of creating and updating airport information. It provides a dynamic interface that adapts to the specific needs of adding new airports or modifying existing ones.
 
 *AirportList.js:
+
 This component showcases a list of airports and offers options to view, edit, and delete each entry. It provides a comprehensive overview of available airports within the system.
 
 *AirportDetail.js:
+
 This component provides a detailed view of a single airport, presenting a comprehensive overview of its information.
 
 *AirportEdit.js:
+
 This component acts as an interface for editing airport information, allowing users to modify and update the details.
 Lastly, integrate these components into the main App.js for seamless interaction and functionality. Ensure proper routing and state management for an optimal user experience.
+
 ---
 
 ## Workplan
